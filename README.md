@@ -4,6 +4,7 @@ A comprehensive framework for evaluating and analyzing fraud detection systems u
 
 ## Architecture
 
+### 1. High-Level System Overview
 ```mermaid
 graph TD
     A[Streamlit Frontend] --> B[FastAPI Backend]
@@ -13,33 +14,80 @@ graph TD
     C --> F[Vector Database]
     C --> G[Evaluation Metrics]
     C --> H[LLM-as-Judge]
-    
-    subgraph Frontend
-    A --> I[User Interface]
+```
+
+### 2. Frontend Components
+```mermaid
+graph TD
+    A[Streamlit Frontend] --> I[User Interface]
     I --> J[Model Selection]
     I --> K[Query Input]
     I --> L[Results Display]
-    end
     
-    subgraph Backend
-    B --> M[API Endpoints]
+    subgraph User Interface
+    J --> M[LLM Model Selection]
+    J --> N[Embedding Model Selection]
+    K --> O[Single Query Input]
+    K --> P[Batch Query Input]
+    L --> Q[Performance Metrics]
+    L --> R[Visualization Charts]
+    end
+```
+
+### 3. Backend Pipeline
+```mermaid
+graph TD
+    B[FastAPI Backend] --> M[API Endpoints]
     M --> N[RAG Pipeline]
     N --> O[Document Processing]
     N --> P[Query Processing]
     N --> Q[Response Generation]
-    end
     
-    subgraph Evaluation
-    G --> R[DeepEval Metrics]
+    subgraph RAG Pipeline
+    O --> S[Document Chunking]
+    O --> T[Embedding Generation]
+    P --> U[Query Embedding]
+    P --> V[Context Retrieval]
+    Q --> W[Response Generation]
+    end
+```
+
+### 4. Evaluation Metrics
+```mermaid
+graph TD
+    G[Evaluation Metrics] --> R[DeepEval Metrics]
     R --> S[Contextual Precision]
     R --> T[Contextual Recall]
     R --> U[Contextual Relevancy]
     R --> V[Answer Relevancy]
     R --> W[Faithfulness]
     
-    H --> X[LLM-as-Judge]
-    X --> Y[Quality Evaluation]
-    X --> Z[Factuality Evaluation]
+    subgraph DeepEval Metrics
+    S --> X[Precision Score]
+    T --> Y[Recall Score]
+    U --> Z[Relevancy Score]
+    V --> AA[Answer Quality]
+    W --> AB[Faithfulness Score]
+    end
+```
+
+### 5. LLM-as-Judge Evaluation
+```mermaid
+graph TD
+    H[LLM-as-Judge] --> X[Quality Evaluation]
+    X --> Y[Factuality Evaluation]
+    
+    subgraph Quality Metrics
+    X --> Z[Accuracy]
+    X --> AA[Completeness]
+    X --> AB[Clarity]
+    X --> AC[Relevance]
+    end
+    
+    subgraph Factuality Metrics
+    Y --> AD[Factual Accuracy]
+    Y --> AE[Hallucination Level]
+    Y --> AF[Source Attribution]
     end
 ```
 
